@@ -29,6 +29,25 @@
         .mt-5 {
             margin-top: 0.5rem !important; /* Adjust the value as needed */
         }
+        .position, .degree {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .position-title, .degree-title {
+            flex: 2;
+        }
+        
+        .institution {
+            flex: 3;
+            text-align: center;
+        }
+        
+        .year {
+            flex: 1;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -61,36 +80,52 @@
         <div class="row">
             <div class="col-lg-8">
                 <h1>Thang N. Dinh</h1>
-                <p>Associate Professor (2019-present)<br>
-                    Assistant Professor (2013-2019)</p>
+                <div class="position">
+                    <div class="position-title">Associate Professor</div>
+                    <div class="institution">Virginia Commonwealth University</div>
+                    <div class="year">(2019-present)</div>
+                </div>
+                <div class="position">
+                    <div class="position-title">Assistant Professor</div>
+                    <div class="institution">Virginia Commonwealth University</div>
+                    <div class="year">(2013-2019)</div>
+                </div>
                 <a href="https://egr.vcu.edu/departments/computer/">Department of Computer Science</a><br>
-                <a href="http://www.vcu.edu/">Virginia Commonwealth University</a></p>
-                <div class="row">
-                    <div class="col-md-4 text-center">
-                        <img src="img/thang.jpeg" alt="Thang Dinh" class="img-fluid rounded portrait-container">
+                <a href="http://www.vcu.edu/">Virginia Commonwealth University</a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <img src="img/thang.jpeg" alt="Thang Dinh" class="img-fluid rounded portrait-container">
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h4>Education</h4>
+                <div class="education">
+                    <div class="degree">
+                        <span class="degree-title">Ph.D, Computer Engineering</span>
+                        <span class="institution">Univ. of Florida, USA</span>
+                        <span class="year">(2008 - 2013)</span>
                     </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4>Education</h4>
-                                <p>
-                                    Ph.D, Computer Engineering, Univ. of Florida, USA (2008 - 2013)<br>
-                                    B.S, IT, Vietnam National Univ., Hanoi, Vietnam (2003-2007)
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>Contact</h4>
-                                <p>
-                                    <b>Office</b>:<br>
-                                    ERB 2321, College of Engineering,<br>
-                                    Virginia Commonwealth University,<br>
-                                    Richmond, VA, 23284<br>
-                                    <b>Email</b>: tndinh [at] vcu.edu
-                                </p>
-                            </div>
-                        </div>
+                    <div class="degree">
+                        <span class="degree-title">B.S, IT</span>
+                        <span class="institution">Vietnam National Univ., Hanoi, Vietnam</span>
+                        <span class="year">(2003 - 2007)</span>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <h4>Contact</h4>
+                <p>
+                    <b>Office</b>:<br>
+                    ERB 2321, College of Engineering,<br>
+                    Virginia Commonwealth University,<br>
+                    Richmond, VA, 23284<br>
+                    <b>Email</b>: tndinh [at] vcu.edu
+                </p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
                 <h4>Research Interests:</h4>
                 <ul>
                     <li>Graph Machine Learning</li>
@@ -105,7 +140,8 @@
                 </ul>
             </div>
         </div>
-    </section>
+        </section>
+
         
         <section id="awards" class="mt-5 bg-light py-5">
         <h2>Awards and Honors</h2>
