@@ -14,36 +14,49 @@
             font-family: 'Roboto', sans-serif;
         }
         .bg-light {
-            padding: 30px;
+            padding: 20px 30px 20px 30px !important;
         }
         .bg-dark {
             background-color: #e0f3e0 !important;
-            padding: 30px;
+            padding: 20px 30px 20px 30px !important;
         }
         .portrait-container {
             display: flex;
             justify-content: flex-end;
-            padding-right: 30px;
-            width: 180px;
+            width: 150px;
+        }
+        .portrait-container img {
+            border: 10px solid transparent !important; /* Adjust the thickness as needed */
         }
         .mt-5 {
-            margin-top: 0.5rem !important; /* Adjust the value as needed */
+            margin-top: 1rem !important;
         }
         .position, .degree {
             margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
         }
-        
-        .position-title, .degree-title,
-        .institution, .year {
-            display: block;
-            text-align: left;
-            margin: 0;
-            padding: 0;
+        .position-title, .degree-title {
+            margin-right: auto;
+        }
+        .year {
+            margin-left: auto;
+            padding-right: 10px !important;
+        }
+        .navbar-custom {
+            background-color: #002366; /* Navy Blue */
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #ffffff;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #cccccc;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-custom">
         <a class="navbar-brand" href="#">Thang N. Dinh</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -53,7 +66,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#home">Home</a>
                 </li>
-                
                 <li class="nav-item">
                     <a class="nav-link" href="#publications">Publications</a>
                 </li>
@@ -69,84 +81,71 @@
 
     <div class="container mt-5">
         <section id="home" class="mt-5 bg-dark py-5">
-        <div class="row">
-            <div class="col-lg-6">
-                <h1>Thang N. Dinh</h1>
-                <div class="position">
-                    <div class="position-title">Associate Professor<br/>Virginia Commonwealth University</div>
-                    <div class="year">2019-present</div>
-                </div>
-                <div class="position">
-                    <div class="position-title">Assistant Professor<br/>
-                        Virginia Commonwealth University</div>
-                    <div class="year">2013-2019</div>
-                </div>
-                <a href="https://egr.vcu.edu/departments/computer/">Department of Computer Science</a><br>
-                <a href="http://www.vcu.edu/">Virginia Commonwealth University</a>
-            </div>
-            <div class="col-lg-4 text-left">
-                <img src="img/thang.jpeg" alt="Thang Dinh" class="img-fluid rounded portrait-container">
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <h4>Education</h4>
-                <div class="education">
-                    <div class="degree">
-                        <span class="degree-title">Ph.D, Computer Engineerin<br/>
-                            Univ. of Florida, USA</span>
-                        <span class="year">2008 - 2013</span>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>Thang N. Dinh</h1>
+                    <div class="position">
+                        <div class="position-title">Associate Professor</div>
+                        
+                        <div class="year">2019-present</div>
                     </div>
-                    <div class="degree">
-                        <span class="degree-title">B.S, Information Technology<br/>
-                            Vietnam National Univ., Hanoi, Vietnam</span>
-                        <span class="year">2003 - 2007</span>
+                    <div class="position">
+                        <div class="position-title">Assistant Professor</div>
+                        <div class="year">2013-2019</div>
                     </div>
+                    <a href="https://egr.vcu.edu/departments/computer/">Department of Computer Science</a><br>
+                    <a href="http://www.vcu.edu/">Virginia Commonwealth University</a>
+                </div>
+                <div class="col-lg-4 text-left">
+                    <img src="img/thang.jpeg" alt="Thang Dinh" class="img-fluid rounded portrait-container">
                 </div>
             </div>
-            <div class="col-md-6">
-                <h4>Contact</h4>
-                <p>
-                    <b>Office</b>:<br>
-                    ERB 2321, College of Engineering,<br>
-                    Virginia Commonwealth University,<br>
-                    Richmond, VA, 23284<br>
-                    <b>Email</b>: tndinh [at] vcu.edu
-                </p>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <h4>Research Interests:</h4>
-                <ul>
-                    <li>Graph Machine Learning</li>
-                    <li>Quantum Computing</li>
-                    <li>Approximation Algorithm</li>
-                    <li>Applications: Social Networks, Blockchain and Distributed Learning,<br>
-                        Smart grids,
-                        Network security,
-                        Drug Discovery,
-                        Pandemic modeling
-                    </li>
-                </ul>
-            </div>
-        </div>
             <div class="row mt-4">
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <h4>Education</h4>
+                    <div class="education">
+                        <div class="degree">
+                            <span class="degree-title">Ph.D, Computer Engineering<br/>University of Florida, USA</span>
+                            <span class="year">2008 - 2013</span>
+                        </div>
+                        <div class="degree">
+                            <span class="degree-title">B.S, Information Technology<br/>Vietnam National University, Hanoi, Vietnam</span>
+                            <span class="year">2003 - 2007</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4>Contact</h4>
                     <p>
-                        [<a href="https://scholar.google.com/citations?user=M5W9tuUAAAAJ&hl=en">Google Scholar</a>]
-                        [<a href="http://www.informatik.uni-trier.de/~ley/pers/hd/d/Dinh:Thang_N=.html">DBLP</a>]
-                        [<a href="http://www.scopus.com/authid/detail.uri?authorId=34976416800">Scopus</a><br>]
-                        My <a href="http://en.wikipedia.org/wiki/Erd%C5%91s_number">Erdos number</a> is <span class="abv">3</span> via the following path: Paul Erdos – Ronald Graham – Panos Pardalos.
+                        ERB 2321, College of Engineering,<br>
+                        Virginia Commonwealth University,<br>
+                        Richmond, VA, 23284<br>
+                        <b>Email</b>: tndinh [at] vcu.edu
                     </p>
                 </div>
             </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <h4>Research Interests:</h4>
+                    <ul>
+                        <li>Graph Machine Learning</li>
+                        <li>Quantum Computing</li>
+                        <li>Approximation Algorithm</li>
+                        <li>Applications: Social Networks, Blockchain and Distributed Learning,<br>
+                            Smart grids, Network security, Drug Discovery, Pandemic modeling
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            My <a href="http://en.wikipedia.org/wiki/Erd%C5%91s_number">Erdos number</a> is <span class="abv">3</span> via the following path: Paul Erdos – Ronald Graham – Panos Pardalos.
         </section>
 
         
         <section id="awards" class="mt-5 bg-light py-5">
         <h2>Awards and Honors</h2>
         <ul>
+            <li>Best Paper Award, AMC Mobicom 2019</li>
+            <li>Best Paper Award Nominee, ACM Sensys 2018</li>
             <li>Selected for Best Papers of ICDM 2017</li>
             <li>Best Paper Award Nominee, ACM Sensys'17</li>
             <li>Best Paper Award, ACM MobiCom 2017 - S3 Workshop</li>
@@ -169,16 +168,23 @@
                         Thai, Phuc, My T. Thai, Tam Vu, and Thang N. Dinh. <a href="https://arxiv.org/abs/2203.01746">SaPHyRa: A Learning Theory Approach to Ranking Nodes in Large Networks.</a>" The 38th IEEE International Conference on Data Engineering (ICDE 2022), 2022.
                     </li>
                     <li>
-                        Dinh, Thang N, and My T Thai. <a href="files/IEEEComp18_BlockchainAI.pdf">AI and blockchain: A disruptive integration.</a>" Computer 51, no. 9 (2018): 48-53. IEEE.
+                        Dinh, Thang N, and My T Thai. <a href="files/IEEEComp18_BlockchainAI.pdf">AI and blockchain: A disruptive integration.</a>, IEEE Computer Magazine, 2018.
                     </li>
                     <li>
-                        Nguyen, Hung T, Tri P Nguyen, Tam N Vu, and Thang N Dinh. <a href="https://arxiv.org/abs/1704.04794">Outward influence and cascade size estimation in billion-scale networks.</a>" Proceedings of the ACM on Measurement and Analysis of Computing Systems 1, no. 1 (2017): 1-30. ACM New York, NY, USA.
+                        Nguyen, Hung T, Tri P Nguyen, Tam N Vu, and Thang N Dinh. <a href="https://arxiv.org/abs/1704.04794">Outward influence and cascade size estimation in billion-scale networks.</a>" Proceedings of the ACM on Measurement and Analysis of Computing Systems (SIGMETRICS), 2017
                     </li>
                     <li>
-                        Dinh, Thang N, Xiang Li, and My T Thai. <a href="https://arxiv.org/abs/1602.01016">Network Clustering via Maximizing Modularity: Approximation Algorithms and Theoretical Limits.</a>" Data Mining (ICDM), 2015 IEEE International Conference on, pp. 101-110. IEEE, 2015.
+                        Dinh, Thang N, Xiang Li, and My T Thai. <a href="https://arxiv.org/abs/1602.01016">Network Clustering via Maximizing Modularity: Approximation Algorithms and Theoretical Limits.</a>"  IEEE International Conference on Data Mining (ICDM), 2015.
                     </li>
             </ol>
-            <a href="https://scholar.google.com/citations?user=M5W9tuUAAAAJ&hl=en" class="btn btn-primary">Full List of Publications</a>
+            <p>
+            Full List of Publications
+
+                <a href="https://scholar.google.com/citations?user=M5W9tuUAAAAJ&hl=en" class="btn btn-primary">Google Scholar</a>
+                <a href="http://www.informatik.uni-trier.de/~ley/pers/hd/d/Dinh:Thang_N=.html" class="btn btn-primary">DBLP</a>
+                <a href="http://www.scopus.com/authid/detail.uri?authorId=34976416800" class="btn btn-primary">Scopus</a><br>
+            </p>
+            
         </section>
 
         <section id="research" class="mt-5 bg-light py-5">
@@ -209,9 +215,9 @@
                                 Harness the power of near-term quantum devices for addressing the most pressing human health challenges, including timely drug discovery, a crucial capability in preparation for future pandemics.
                             </p>
                             <ul>
-                                <li>Develop innovative approaches in formulating and compiling medical optimization problems onto limited-capabilities near-term quantum computing devices</li>
-                                 <li>Idenitfy optimal positions and shapes of molecules to target proteins when they are bound to each other</li>
-                                <li>Analyze vast amounts of medical data using quantum computing, leading to faster and more accurate diagnoses, improved drug discovery, and more efficient treatment plans</li>
+                                <li>Innovative approaches to map medical optimization problems onto limited-capabilities NISQ quantum devices</li>
+                                 <li>Idenitfy optimal positions and shapes of molecules to target proteins</li>
+                                <li>Quantum-accelerated medical data analysis for improved diagnoses and treatment plans</li>
                             </ul>
                         </div>
                 </div>
@@ -229,7 +235,7 @@
                                 <ul>
                                     <li>Develop lightweight secure aggregation and backdoor inspection mechanisms</li>
                                     <li>Design a succinct non-interactive argument of knowledge (SNARK) attestation for high accuracy and efficiency</li>
-                                    <li>Propose a blockchain-based FL architecture for privacy and security protection>
+                                    <li>Propose a blockchain-based FL architecture for privacy and security protection
                                 </ul>
                             </p>
                         </div>
@@ -239,6 +245,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Fighting Misinformation and Covert Terrorism Groups on Social Media</h5>
+                            Scalable analysis for billion-scale social networks to unveil social dynamic patterns
                             <ul>
                                 <li>Investigate how the misinformation propagates so quickly and widely into the network</li>
                                 <li>What about Twitter and Facebook makes people so gullible and willing to believe anything?</li>
