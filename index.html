@@ -59,40 +59,22 @@
             border-radius: 0.25rem;
             padding: 1rem;
             height: 400px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-snap-type: x mandatory;
-            display: flex;
-            gap: 1rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: block;
         }
         .news-item {
-            min-width: 100%;
-            scroll-snap-align: start;
             padding: 1rem;
-            background-color: white;
             border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
         }
-        .news-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+        .news-item:nth-child(odd) {
+            background-color: #e3f2fd;
         }
-        .news-controls button {
-            background-color: #002366;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
+        .news-item:nth-child(even) {
+            background-color: #f3e5f5;
         }
-        .news-controls button:hover {
-            background-color: #001a4d;
-        }
-        .news-controls button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
+
     </style>
 </head>
 <body>
@@ -105,7 +87,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#lab">SecQSys Lab</a>
+                        <a class="nav-link" href="#lab">SecQ Lab</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#home">PI Information</a>
@@ -129,21 +111,26 @@
 
     <div class="container mt-5">
         <section id="lab" class="mt-5 bg-dark py-5">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <img src="img/secq_logo.png" alt="SecQ Lab Logo" class="img-fluid" style="max-width: 300px; height: auto;">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-7">
-                    <h1>SecQSys</h1>
+                    <h1>SecQ</h1>
                     <h4>Security and Quantum Intelligence for Complex Systems</h4>
                     <p class="mt-4">
-                        The SecQSys Lab advances the foundations of security and scalability in complex systems through the integration of quantum intelligence (quantum optimization and quantum machine learning) and graph-based learning and optimization. Our research spans critical infrastructures, social and technological networks, and blockchain systems, with a focus on developing trustworthy, resilient, and scalable solutions.
+                        The SecQ Lab advances the foundations of security and scalability in complex systems through the integration of quantum intelligence (quantum optimization and quantum machine learning) and graph-based learning and optimization. Our research spans critical infrastructures, social and technological networks, and blockchain systems, with a focus on developing trustworthy, resilient, and scalable solutions.
                     </p>
                 </div>
                 <div class="col-lg-5">
-                    <h4>Lab News</h4>
-                    <div class="news-box" id="newsBox" role="region" aria-live="polite" aria-label="Lab News">
+                    <h4>News</h4>
+                    <div class="news-box" id="newsBox" role="region" aria-live="polite" aria-label="News">
                         <div class="news-item">
-                            <h5>Welcome to SecQSys Lab</h5>
+                            <h5>Welcome to SecQ Lab</h5>
                             <p class="text-muted">December 2024</p>
-                            <p>We are excited to announce the launch of the SecQSys Lab, focusing on security and quantum intelligence for complex systems.</p>
+                            <p>We are excited to announce the launch of the SecQ Lab, focusing on security and quantum intelligence for complex systems.</p>
                         </div>
                         <div class="news-item">
                             <h5>AAAI 2025 Paper Accepted</h5>
@@ -153,13 +140,10 @@
                         <div class="news-item">
                             <h5>New Research Grants</h5>
                             <p class="text-muted">November 2024</p>
-                            <p>SecQSys Lab receives funding to advance quantum-inspired solutions for critical infrastructure security.</p>
+                            <p>SecQ Lab receives funding to advance quantum-inspired solutions for critical infrastructure security.</p>
                         </div>
                     </div>
-                    <div class="news-controls">
-                        <button id="prevBtn" aria-label="Previous news item">← Previous</button>
-                        <button id="nextBtn" aria-label="Next news item">Next →</button>
-                    </div>
+
                 </div>
             </div>
         </section>
@@ -392,62 +376,6 @@
         &copy; 2023 Thang N. Dinh. All rights reserved.
     </footer>
 
-    <script>
-        // News box navigation
-        (function() {
-            const newsBox = document.getElementById('newsBox');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            if (!newsBox || !prevBtn || !nextBtn) return;
-            
-            const newsItems = newsBox.querySelectorAll('.news-item');
-            let currentIndex = 0;
-            
-            function scrollToItem(index) {
-                if (index < 0 || index >= newsItems.length) return;
-                currentIndex = index;
-                newsItems[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                updateButtons();
-                updateAriaLive();
-            }
-            
-            function updateButtons() {
-                prevBtn.disabled = currentIndex === 0;
-                nextBtn.disabled = currentIndex === newsItems.length - 1;
-            }
-            
-            function updateAriaLive() {
-                newsBox.setAttribute('aria-live', 'polite');
-            }
-            
-            prevBtn.addEventListener('click', () => scrollToItem(currentIndex - 1));
-            nextBtn.addEventListener('click', () => scrollToItem(currentIndex + 1));
-            
-            // Keyboard navigation
-            newsBox.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    scrollToItem(currentIndex - 1);
-                } else if (e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    scrollToItem(currentIndex + 1);
-                }
-            });
-            
-            // Update current index on scroll
-            newsBox.addEventListener('scroll', () => {
-                const scrollLeft = newsBox.scrollLeft;
-                const itemWidth = newsItems[0].offsetWidth;
-                const newIndex = Math.round(scrollLeft / itemWidth);
-                if (newIndex !== currentIndex) {
-                    currentIndex = newIndex;
-                    updateButtons();
-                }
-            });
-            
-            updateButtons();
-        })();
-    </script>
+
 </body>
 </html>
