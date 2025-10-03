@@ -57,22 +57,29 @@
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
             border-radius: 0.25rem;
-            padding: 1rem;
+            padding: 0.5rem;
             height: 400px;
             overflow-y: auto;
             overflow-x: hidden;
             display: block;
         }
         .news-item {
-            padding: 1rem;
+            padding: 0.5rem 0.75rem;
             border-radius: 0.25rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+            font-size: 1.05rem;       
+        }
+        .news-item p {
+            margin-bottom: 0.25rem;
         }
         .news-item:nth-child(odd) {
             background-color: #e3f2fd;
         }
         .news-item:nth-child(even) {
             background-color: #f3e5f5;
+        }
+        .news-item:last-child {
+            margin-bottom: 0;         /* no extra gap at the end */
         }
         /* Lab description: larger, justified text */
         .lab-desc {
