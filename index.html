@@ -23,16 +23,29 @@
         .portrait-container {
             display: flex;
             justify-content: flex-end;
-            width: 250px;
+            width: 100%;
+            max-width: 250px;
+            margin-left: auto;
+        }
+        /* align left */
+        .portrait-container {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 270px;
+            margin-left: 0;
         }
         .portrait-container img {
-            border: 10px solid transparent !important; /* Adjust the thickness as needed */
+            border: 10px solid transparent !important;
+            width: 100%;
+            height: auto;
         }
         .mt-5 {
             margin-top: 1rem !important;
         }
         .position, .degree {
-            margin-bottom: 5px;
+            margin-bottom: 0.5rem;
+            margin-right: 1rem;
             display: flex;
             justify-content: space-between;
         }
@@ -44,7 +57,7 @@
             padding-right: 10px !important;
         }
         .navbar-custom {
-            background-color: #002366; /* Navy Blue */
+            background-color: #002366;
         }
         .navbar-custom .navbar-brand,
         .navbar-custom .nav-link {
@@ -56,7 +69,7 @@
         .news-box {
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
-            border-radius: 0.25rem;
+            border-radius: 0.5rem;
             padding: 0.5rem;
             height: 500px;
             overflow-y: auto;
@@ -64,10 +77,10 @@
             display: block;
         }
         .news-item {
-            padding: 0.5rem 0.75rem;
+            padding: 0.5rem;
             border-radius: 0.25rem;
-            margin-bottom: 0.25rem;
-            font-size: 1.05rem;       
+            margin-bottom: 0.05rem;
+            /*font-size: 1.05rem;       */
         }
         .news-item p {
             margin-bottom: 0.25rem;
@@ -79,20 +92,28 @@
             background-color: #f3e5f5;
         }
         .news-item:last-child {
-            margin-bottom: 0;         /* no extra gap at the end */
+            margin-bottom: 0.5rem;
         }
-        /* Lab description: larger, justified text */
         .lab-desc {
-            font-size: 1.15rem;   /* ~18–19px; tweak as you like */
+            /* font-size: 1.15rem; */
             line-height: 1.7;
-            #text-align: justify;
+        }
+        /* Ensure images are responsive */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <!--a class="navbar-brand" href="#">Thang N. Dinh</a-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -124,84 +145,73 @@
     <div class="container mt-5">
         <section id="lab" class="mt-5 bg-dark py-5">
             <div class="row">
-                <div class="col-lg-5 col-md-5">
-                    <div class="mb-3">
-                        <img src="img/secq_logo.png" alt="SecQ Lab Logo" class="img-fluid" style="max-width: 400px; height: auto;">
+                <div class="col-lg-6 col-md-12">
+                    <div class="logo-container">
+                        <img src="img/secq_logo.png" alt="SecQ Lab Logo" class="img-fluid" style="max-width: 400px;">
                     </div>
-                    <!--h4>Security and Quantum Intelligence for Complex Systems</h4-->
                     <p class="mt-4 lab-desc">
                         The SecQ Lab advances the foundations of <b>security and scalability</b> in complex systems through the integration of <b>quantum intelligence</b> (quantum optimization and quantum machine learning) and <b>graph machine learning</b>. Our research spans critical infrastructures, social and technological networks, and blockchain systems, with a focus on developing trustworthy, resilient, and scalable solutions.
                     </p>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <h4>News</h4>
+                <div class="col-lg-6 col-md-12">
+                    <h4><span class="ps-3">&nbsp;&nbsp;News</span></h4>
                     <div class="news-box" id="newsBox" role="region" aria-live="polite" aria-label="News">
                         <div class="news-item">
-                            <h5>IonQ Research grant awarded</h5>
-                            <p class="text-muted">September 2025</p>
-                            <p>“Quantum Approximate Optimization and Machine Learning for Real-World Applications” received support from IonQ Research (Google/IonQ Cloud credits); see <a href="https://ionq.com" target="_blank" rel="noopener">IonQ</a> for program details.</p>
+                            <h6><span class="text-muted">Sep. 2025:</span> IonQ Research grant awarded</h6>
+                            <p>"Quantum Approximate Optimization and Machine Learning for Real-World Applications" received support from IonQ Research (Google/IonQ Cloud credits); see <a href="https://ionq.com" target="_blank" rel="noopener">IonQ</a> for program details.</p>
                         </div>
                     
                         <div class="news-item">
-                            <h5>CCI CVN grant awarded</h5>
-                            <p class="text-muted">August 2025</p>
+                            <h6><span class="text-muted">Aug. 2025:</span> CCI CVN grant awarded</h6>
                             <p>Our proposal on securing CPS using quantum computing was funded by the Commonwealth Cyber Initiative – Central Virginia Node (CCI CVN); see <a href="https://cyberinitiative.org" target="_blank" rel="noopener">CCI</a>.</p>
                         </div>
                     
                         <div class="news-item">
-                            <h5>QCE’25 workshop paper accepted</h5>
+                            <h6><span class="text-muted">Jul. 2025:</span> QCE'25 workshop paper accepted</h6>
                             <p class="text-muted">July 2025</p>
-                            <p> Our paper “RELIC: Reinforcement Learning Based Ising Optimization via Graph Compression” was accepted to the QCRL Workshop Track at IEEE Quantum Week (QCE’25); conference info: <a href="https://qce.quantum.ieee.org" target="_blank" rel="noopener">IEEE QCE</a>.</p>
+                            <p> Our paper "RELIC: Reinforcement Learning Based Ising Optimization via Graph Compression" was accepted to the QCRL Workshop Track at IEEE Quantum Week (QCE'25); conference info: <a href="https://qce.quantum.ieee.org" target="_blank" rel="noopener">IEEE QCE</a>.</p>
                         </div>
                     
                         <div class="news-item">
-                            <h5>QCE’25 technical paper accepted</h5>
-                            <p class="text-muted">July 2025</p>
-                            <p>Our paper “Noise-aware Quantum Annealing for State Estimation in Power Systems” was accepted to the QAPP Track at IEEE Quantum Week (QCE’25); conference info: <a href="https://qce.quantum.ieee.org" target="_blank" rel="noopener">IEEE QCE</a>.</p>
+                            <h6><span class="text-muted">Jul. 2025:</span> QCE'25 technical paper accepted</h6>
+                            <p>Our paper "Noise-aware Quantum Annealing for State Estimation in Power Systems" was accepted to the QAPP Track at IEEE Quantum Week (QCE'25); conference info: <a href="https://qce.quantum.ieee.org" target="_blank" rel="noopener">IEEE QCE</a>.</p>
                         </div>
                     
                         <div class="news-item">
-                            <h5>AAAI’25 paper accepted</h5>
-                            <p class="text-muted">December 2024</p>
-                            <p>Our paper “Scalable Quantum-Inspired Optimization through Dynamic Qubit Compression” was accepted (oral) at AAAI 2025; paper: <a href="https://arxiv.org/abs/2412.18571" target="_blank" rel="noopener">arXiv:2412.18571</a>, conference: <a href="https://aaai.org/conference/aaai-25/" target="_blank" rel="noopener">AAAI’25</a>.</p>
+                            <h6><span class="text-muted">Dec. 2024:</span> AAAI'25 paper accepted</h6>
+                            <p>Our paper "Scalable Quantum-Inspired Optimization through Dynamic Qubit Compression" was accepted (oral) at AAAI 2025; paper: <a href="https://arxiv.org/abs/2412.18571" target="_blank" rel="noopener">arXiv:2412.18571</a>, conference: <a href="https://aaai.org/conference/aaai-25/" target="_blank" rel="noopener">AAAI'25</a>.</p>
                         </div>
                     
                         <div class="news-item">
-                            <h5>CCI Hub award announced</h5>
-                            <p class="text-muted">December 2024</p>
-                            <p>Our proposal “Privacy Preserving Federated IoT Learning for Smart Public Health Surveillance” was funded by the CCI Hub; see <a href="https://cyberinitiative.org" target="_blank" rel="noopener">CCI</a>.</p>
+                            <h6><span class="text-muted">Dec. 2024:</span> CCI Hub award announced</h6>
+                            <p>Our proposal "Privacy Preserving Federated IoT Learning for Smart Public Health Surveillance" was funded by the CCI Hub; see <a href="https://cyberinitiative.org" target="_blank" rel="noopener">CCI</a>.</p>
                         </div>
                     
                         <div class="news-item">
-                            <h5>CCI CVN award granted</h5>
-                            <p class="text-muted">August 2023</p>
-                            <p>Our proposal “Weakly-supervised Federated Graph Learning for Cyber-Physical Systems” was funded by CCI – Central Virginia Node (Aug 1, 2023 – Jul 31, 2024); see <a href="https://cyberinitiative.org" target="_blank" rel="noopener">CCI</a>.</p>
+                            <h6><span class="text-muted">Aug. 2023:</span> CCI CVN award granted</h6>
+                            <p>Our proposal "Weakly-supervised Federated Graph Learning for Cyber-Physical Systems" was funded by CCI – Central Virginia Node (Aug 1, 2023 – Jul 31, 2024); see <a href="https://cyberinitiative.org" target="_blank" rel="noopener">CCI</a>.</p>
                         </div>
                         
                         <div class="news-item">
-                        <h5>NSF grant awarded</h5>
-                        <p class="text-muted">August 2022</p>
-                        <p>Our proposal “Collaborative Research: AMPS: Rethinking State Estimation for Power Distribution Systems in the Quantum Era” was funded by the National Science Foundation (NSF); agency: <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>.</p>
+                        <h6><span class="text-muted">Aug. 2022:</span> NSF grant awarded</h6>
+                        <p>Our proposal "Collaborative Research: AMPS: Rethinking State Estimation for Power Distribution Systems in the Quantum Era" was funded by the National Science Foundation (NSF); agency: <a href="https://www.nsf.gov" target="_blank" rel="noopener">NSF</a>.</p>
                         </div>
                         
                         <div class="news-item">
-                            <h5>Paper accepted at QCE’22</h5>
-                            <p class="text-muted">May 2022</p>
-                            <p>Our paper “FastHare: Fast Hamiltonian Reduction for Large-scale Quantum Annealing” was accepted to the 2022 IEEE International Conference on Quantum Computing and Engineering (QCE’22); paper: <a href="https://arxiv.org/abs/2205.05004" target="_blank" rel="noopener">arXiv:2205.05004</a>, conference: <a href="https://qce.quantum.ieee.org/2022/" target="_blank" rel="noopener">IEEE QCE’22</a>.</p>
+                            <h6><span class="text-muted">Jul. 2022:</span> Paper accepted at QCE'22</h6>
+                            <p>Our paper "FastHare: Fast Hamiltonian Reduction for Large-scale Quantum Annealing" was accepted to the 2022 IEEE International Conference on Quantum Computing and Engineering (QCE'22); paper: <a href="https://arxiv.org/abs/2205.05004" target="_blank" rel="noopener">arXiv:2205.05004</a>, conference: <a href="https://qce.quantum.ieee.org/2022/" target="_blank" rel="noopener">IEEE QCE'22</a>.</p>
                         </div>                
                     </div>
-
                 </div>
             </div>
         </section>
 
         <section id="home" class="mt-5 bg-light py-5">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-7 col-md-12">
                     <h1>Thang N. Dinh</h1>
                     <div class="position">
                         <div class="position-title">Associate Professor</div>
-                        
                         <div class="year">2019-present</div>
                     </div>
                     <div class="position">
@@ -211,12 +221,14 @@
                     <a href="https://egr.vcu.edu/departments/computer/">Department of Computer Science</a><br>
                     <a href="http://www.vcu.edu/">Virginia Commonwealth University</a>
                 </div>
-                <div class="col-lg-5 col-md-5 text-left ps-3">
-                    <img src="img/thang.png" alt="Thang Dinh" class="img-fluid rounded portrait-container">
+                <div class="col-lg-5 col-md-12 text-center text-lg-left">
+                    <div class="portrait-container">
+                        <img src="img/thang.png" alt="Thang Dinh" class="img-fluid rounded">
+                    </div>
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-6">
+                <div class="col-md-7 col-sm-12">
                     <h4>Education</h4>
                     <div class="education">
                         <div class="degree">
@@ -229,7 +241,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5 col-sm-12">
                     <h4>Contact</h4>
                     <p>
                         ERB 2321, College of Engineering,<br>
@@ -240,7 +252,7 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-12">
+                <div class="col-12">
                     <h4>Research Interests:</h4>
                     <ul>
                         <li>Graph Machine Learning</li>
@@ -259,14 +271,14 @@
         <section id="member" class="mt-5 bg-dark py-5">
             <h2>Lab Members</h2>
             <div class="row mt-4">
-                <div class="col-md-5 col-lg-5">
+                <div class="col-md-6 col-sm-12">
                     <h4>PhD Students</h4>
                     <ul>
                         <li>Cong Cao</li>
                         <li>Bao Tran</li>
                     </ul>
                 </div>
-                <div class="col-md-6 col-lg-6">
+                <div class="col-md-6 col-sm-12">
                     <h4>Undergraduate Students</h4>
                     <ul>
                         <li>Jonah Minkoff</li>
@@ -276,80 +288,74 @@
         </section>
 
         <section id="awards" class="mt-5 bg-light py-5">
-        <h2>Awards and Honors</h2>
-        <ul>
-            <li>Best Paper Award, ACM Mobicom 2019</li>
-            <li>Best Paper Award Nominee, ACM Sensys 2018</li>
-            <li>Selected for Best Papers of ICDM 2017</li>
-            <li>Best Paper Award Nominee, ACM Sensys'17</li>
-            <li>Best Paper Award, ACM MobiCom 2017 - S3 Workshop</li>
-            <li>Best-in-Session Presentation Award, INFOCOM 2016</li>
-            <li>Best Paper Award, 4th Int. Conf. on Computational Social Networks, 2015</li>
-            <li>Alumni Fellowship Award, University of Florida, 2008</li>
-            <li>The Honda Young Engineer and Scientist Award, Honda Foundation and NIST, 2007</li>
-            <li>Distinguished Academic Achievement Award, Vietnam National University, 2007</li>
-            <li>Microsoft Scholarship, By Bill Gates for Top 10 Outstanding Vietnamese Students, 2006</li>
-            <li>Bronze Medal, 15<sup>th</sup> Int. Olympiad in Informatics (IOI), US, 2003</li>
-        </ul>
+            <h2>Awards and Honors</h2>
+            <ul>
+                <li>Best Paper Award, ACM Mobicom 2019</li>
+                <li>Best Paper Award Nominee, ACM Sensys 2018</li>
+                <li>Selected for Best Papers of ICDM 2017</li>
+                <li>Best Paper Award Nominee, ACM Sensys'17</li>
+                <li>Best Paper Award, ACM MobiCom 2017 - S3 Workshop</li>
+                <li>Best-in-Session Presentation Award, INFOCOM 2016</li>
+                <li>Best Paper Award, 4th Int. Conf. on Computational Social Networks, 2015</li>
+                <li>Alumni Fellowship Award, University of Florida, 2008</li>
+                <li>The Honda Young Engineer and Scientist Award, Honda Foundation and NIST, 2007</li>
+                <li>Distinguished Academic Achievement Award, Vietnam National University, 2007</li>
+                <li>Microsoft Scholarship, By Bill Gates for Top 10 Outstanding Vietnamese Students, 2006</li>
+                <li>Bronze Medal, 15<sup>th</sup> Int. Olympiad in Informatics (IOI), US, 2003</li>
+            </ul>
         </section>
         
         <section id="publications" class="mt-5 bg-dark py-5">
-            <div class="col-lg-11 col-md-11">
-
-                <h2>Selected Publications</h2>
-                <ol>
-                        <li>
-                            Co Tran-Bao Tran, Hy T Son, and Thang N Dinh. <a href="https://arxiv.org/abs/2412.18571">Scalable Quantum-Inspired Optimization through Dynamic Qubit Compression.</a>" The 39th AAAI Conference on Artificial Intelligence (AAAI), 2025 [Oral Presentation].
-                        </li>
-                         <li>
-                            Thai, Phuc, My T Thai, Tam Vu, and Thang N Dinh. <a href="https://arxiv.org/abs/2205.05004">FastHare: Fast Hamiltonian Reduction for Large-scale Quantum Annealing.</a>" 2022 IEEE International Conference on Quantum Computing and Engineering (QCE), 2022.
-                        </li>
-                        <li>
-                            Thai, Phuc, My T. Thai, Tam Vu, and Thang N. Dinh. <a href="https://arxiv.org/abs/2203.01746">SaPHyRa: A Learning Theory Approach to Ranking Nodes in Large Networks.</a>" The 38th IEEE International Conference on Data Engineering (ICDE 2022), 2022.
-                        </li>
-                        <li>
-                            Dinh, Thang N, and My T Thai. <a href="files/IEEEComp18_BlockchainAI.pdf">AI and blockchain: A disruptive integration.</a>, IEEE Computer Magazine, 2018.
-                        </li>
-                        <li>
-                            Nguyen, Hung T, Tri P Nguyen, Tam N Vu, and Thang N Dinh. <a href="https://arxiv.org/abs/1704.04794">Outward influence and cascade size estimation in billion-scale networks.</a>" Proceedings of the ACM on Measurement and Analysis of Computing Systems (SIGMETRICS), 2017
-                        </li>
-                        <li>
-                            Dinh, Thang N, Xiang Li, and My T Thai. <a href="https://arxiv.org/abs/1602.01016">Network Clustering via Maximizing Modularity: Approximation Algorithms and Theoretical Limits.</a>"  IEEE International Conference on Data Mining (ICDM), 2015.
-                        </li>
-                </ol>
-                <p>
+            <h2>Selected Publications</h2>
+            <ol>
+                <li>
+                    Co Tran-Bao Tran, Hy T Son, and Thang N Dinh. <a href="https://arxiv.org/abs/2412.18571">Scalable Quantum-Inspired Optimization through Dynamic Qubit Compression.</a>" The 39th AAAI Conference on Artificial Intelligence (AAAI), 2025 [Oral Presentation].
+                </li>
+                <li>
+                    Thai, Phuc, My T Thai, Tam Vu, and Thang N Dinh. <a href="https://arxiv.org/abs/2205.05004">FastHare: Fast Hamiltonian Reduction for Large-scale Quantum Annealing.</a>" 2022 IEEE International Conference on Quantum Computing and Engineering (QCE), 2022.
+                </li>
+                <li>
+                    Thai, Phuc, My T. Thai, Tam Vu, and Thang N. Dinh. <a href="https://arxiv.org/abs/2203.01746">SaPHyRa: A Learning Theory Approach to Ranking Nodes in Large Networks.</a>" The 38th IEEE International Conference on Data Engineering (ICDE 2022), 2022.
+                </li>
+                <li>
+                    Dinh, Thang N, and My T Thai. <a href="files/IEEEComp18_BlockchainAI.pdf">AI and blockchain: A disruptive integration.</a>, IEEE Computer Magazine, 2018.
+                </li>
+                <li>
+                    Nguyen, Hung T, Tri P Nguyen, Tam N Vu, and Thang N Dinh. <a href="https://arxiv.org/abs/1704.04794">Outward influence and cascade size estimation in billion-scale networks.</a>" Proceedings of the ACM on Measurement and Analysis of Computing Systems (SIGMETRICS), 2017
+                </li>
+                <li>
+                    Dinh, Thang N, Xiang Li, and My T Thai. <a href="https://arxiv.org/abs/1602.01016">Network Clustering via Maximizing Modularity: Approximation Algorithms and Theoretical Limits.</a>"  IEEE International Conference on Data Mining (ICDM), 2015.
+                </li>
+            </ol>
+            <p>
                 Full List of Publications
-    
-                    <a href="https://scholar.google.com/citations?user=M5W9tuUAAAAJ&hl=en" class="btn btn-primary">Google Scholar</a>
-                    <a href="http://www.informatik.uni-trier.de/~ley/pers/hd/d/Dinh:Thang_N=.html" class="btn btn-primary">DBLP</a>
-                    <a href="http://www.scopus.com/authid/detail.uri?authorId=34976416800" class="btn btn-primary">Scopus</a><br>
-                </p>
-            </div>
-            
+
+                <a href="https://scholar.google.com/citations?user=M5W9tuUAAAAJ&hl=en" class="btn btn-primary">Google Scholar</a>
+                <a href="http://www.informatik.uni-trier.de/~ley/pers/hd/d/Dinh:Thang_N=.html" class="btn btn-primary">DBLP</a>
+                <a href="http://www.scopus.com/authid/detail.uri?authorId=34976416800" class="btn btn-primary">Scopus</a><br>
+            </p>
         </section>
 
         <section id="research" class="mt-5 bg-light py-5">
             <h2>Research Projects</h2>
-             <div class="row">
-
-                 <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Quantum-inspired State Estimation</h5>
                             <p class="card-text">
                                 Develops a novel quantum-inspired framework for power state estimation, addressing cyber risks and operational challenges in decentralized grids. 
-                                <ul>
-                                    <li>Design a quantum network architecture for secure communication in smart grids</li>
-                                    <li>Develop efficient quantum computing solutions for power state estimation</li>
-                                    <li>Propose a robust and trustworthy distributed system state estimation using quantum technologies and deep learning</li>
-                                </ul>
                             </p>
+                            <ul>
+                                <li>Design a quantum network architecture for secure communication in smart grids</li>
+                                <li>Develop efficient quantum computing solutions for power state estimation</li>
+                                <li>Propose a robust and trustworthy distributed system state estimation using quantum technologies and deep learning</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            <div class="col-lg-5">
-
-                <div class="card mb-3">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Quantum Leap in Health Optimization</h5>
                             <p class="card-text">
@@ -357,36 +363,36 @@
                             </p>
                             <ul>
                                 <li>Innovative approaches to map medical optimization problems onto limited-capability NISQ quantum devices</li>
-                                 <li> Identify optimal positions and shapes of molecules to target proteins</li>
+                                <li> Identify optimal positions and shapes of molecules to target proteins</li>
                                 <li>Quantum-accelerated medical data analysis for improved diagnoses and treatment plans</li>
                             </ul>
                         </div>
+                    </div>
                 </div>
-                
-                
             </div>
-             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Trustworthy and Privacy-preserving Federated Learning</h5>
                             <p class="card-text">
                                 Develops a principled and systematic federated learning framework that  offers protection against threats from both malicious users and servers. 
-                                <ul>
-                                    <li>Develop lightweight secure aggregation and backdoor inspection mechanisms</li>
-                                    <li>Design a succinct non-interactive argument of knowledge (SNARK) attestation for high accuracy and efficiency</li>
-                                    <li>Propose a blockchain-based FL architecture for privacy and security protection
-                                </ul>
                             </p>
+                            <ul>
+                                <li>Develop lightweight secure aggregation and backdoor inspection mechanisms</li>
+                                <li>Design a succinct non-interactive argument of knowledge (SNARK) attestation for high accuracy and efficiency</li>
+                                <li>Propose a blockchain-based FL architecture for privacy and security protection</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-6 col-md-12">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Modeling Viral Marketing and Diffusions on Social Media</h5>
-                            Scalable analysis for billion-scale social networks to unveil social dynamic patterns
+                            <p class="card-text">
+                                Scalable analysis for billion-scale social networks to unveil social dynamic patterns
+                            </p>
                             <ul>
                                 <li>Investigate how information propagates so quickly and widely across networks</li>
                                 <li>Analyze what features of platforms like Twitter and Facebook amplify virality and user susceptibility</li>
@@ -394,10 +400,8 @@
                         </div>
                     </div>
                 </div>
- 
             </div>
             <div class="text-center mt-4">
-                <div class="text-center mt-4">
                 <h4>The research is made possible thanks to the support of </h4>
                 <div class="d-flex justify-content-center align-items-center flex-wrap">
                     <img src="img/NSF.png" alt="NSF" class="img-fluid m-2" style="max-height: 60px;">
@@ -407,10 +411,9 @@
                     <img src="img/Harmony.png" alt="Harmony One" class="img-fluid m-2" style="max-height: 60px;">
                     <img src="img/Nvidia.png" alt="Nvidia" class="img-fluid m-2" style="max-height: 60px;">
                     <img src="img/D-Wave.png" alt="D-Wave" class="img-fluid m-2" style="max-height: 60px;max-width: 100px;">
+                    <img src="img/IONQ.png" alt="D-Wave" class="img-fluid m-2" style="max-height: 60px;max-width: 100px;">
                 </div>
             </div>
-
-        </div>
         </section>
 
         <section id="teaching" class="mt-5 bg-dark py-5">
@@ -429,7 +432,6 @@
     <footer class="bg-light text-center py-3 mt-5">
         &copy; 2025 Thang N. Dinh. All rights reserved.
     </footer>
-
 
 </body>
 </html>
