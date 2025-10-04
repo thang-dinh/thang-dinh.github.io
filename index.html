@@ -10,16 +10,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-green: #1b5e20;
+            --secondary-green: #2e7d32;
+            --accent-green: #43a047;
+            --light-green: #e8f5e9;
+            --lighter-green: #f1f8f4;
+            --dark-text: #1a1a1a;
+            --medium-text: #424242;
+            --link-color: #1b5e20;
+            --link-hover: #2e7d32;
+        }
         body {
             font-family: 'Roboto', sans-serif;
         }
         .bg-light {
-            padding: 20px 30px 20px 30px !important;
+            padding: 20px 20px 20px 20px !important;
         }
         .bg-dark {
             background-color: #e0f3e0 !important;
-            padding: 20px 30px 20px 30px !important;
+            padding: 20px 20px 20px 20px !important;
         }
+        /* Links */
+        a {
+            color: var(--link-color);
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: none;
+        }
+        /* Buttons */
+        .btn-primary {
+            /* background: linear-gradient(135deg, var(--secondary-green) 0%, var(--accent-green) 100%); */
+            background-color: var(--secondary-green);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            /* background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%); */
+            background-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        /* position portrait container */
         .portrait-container {
             display: flex;
             justify-content: flex-end;
@@ -41,37 +78,55 @@
             height: auto;
         }
         .mt-5 {
-            margin-top: 1rem !important;
+            margin-top: 0.5rem !important;
         }
+       
         .position, .degree {
-            margin-bottom: 0.5rem;
-            margin-right: 1rem;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(67, 160, 71, 0.2);
+        }
+        .position:last-child, .degree:last-child {
+            border-bottom: none;
         }
         .position-title, .degree-title {
             margin-right: auto;
+            color: var(--medium-text);
+            font-weight: 400;
         }
         .year {
             margin-left: auto;
             padding-right: 10px !important;
+            color: var(--secondary-green);
+            font-weight: 500;
         }
+
+        /* Navbar */
         .navbar-custom {
-            background-color: #002366;
+            background: var(--primary-green);
         }
         .navbar-custom .navbar-brand,
         .navbar-custom .nav-link {
             color: #ffffff;
+            font-weight: 400;
+            transition: all 0.2s ease;
         }
-        .navbar-custom .nav-link:hover {
-            color: #cccccc;
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-link.active {
+            color: #c8e6c9;
+            background-color: var(--secondary-green);
+            
+            transform: translateY(-1px);
         }
-         .news-box {
+        /* News box */
+        .news-box {
             background-color: #ffffff;
             border: 2px solid #c8e6c9;
             border-radius: 0.5rem;
             padding: 0.75rem;
-            height: 500px;
+            height: 400px;
             overflow-y: auto;
             overflow-x: hidden;
             display: block;
@@ -138,8 +193,30 @@
             text-decoration: none;
         }
         .lab-desc {
-            /* font-size: 1.15rem; */
             line-height: 1.7;
+        }
+        /* Lists */
+        section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        section ul li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+        section ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+        /* Awards section special styling */
+        #awards ul li::before {
+            content: "✓";
+            color: var(--secondary-green);
+            font-size: 1.1rem;
         }
         /* Ensure images are responsive */
         .logo-container {
@@ -177,16 +254,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#research">Research</a>
                     </li>
-                    <li class="nav-item">
+                    <!--li class="nav-item">
                         <a class="nav-link" href="#teaching">Teaching</a>
-                    </li>
+                    </li-->
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container mt-5">
-        <section id="lab" class="mt-5 bg-dark py-5">
+        <section id="lab" class="mt-5 bg-dark">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <div class="logo-container">
@@ -210,8 +287,7 @@
                         </div>
                     
                         <div class="news-item">
-                            <h6><span class="text-muted">Jul. 2025:</span> QCE'25 workshop paper accepted</h6>
-                            <p class="text-muted">July 2025</p>
+                            <h6><span class="text-muted">Jul. 2025:</span> QCE'25 workshop paper accepted</h6>     
                             <p> Our paper "RELIC: Reinforcement Learning Based Ising Optimization via Graph Compression" was accepted to the QCRL Workshop Track at IEEE Quantum Week (QCE'25); conference info: <a href="https://qce.quantum.ieee.org" target="_blank" rel="noopener">IEEE QCE</a>.</p>
                         </div>
                     
@@ -249,9 +325,9 @@
             </div>
         </section>
 
-        <section id="home" class="mt-5 bg-light py-5">
+        <section id="home" class="mt-5 bg-light">
             <div class="row">
-                <div class="col-lg-7 col-md-12">
+                <div class="col-md-6 col-sm-12">
                     <h1>Thang N. Dinh</h1>
                     <div class="position">
                         <div class="position-title">Associate Professor</div>
@@ -264,14 +340,14 @@
                     <a href="https://egr.vcu.edu/departments/computer/">Department of Computer Science</a><br>
                     <a href="http://www.vcu.edu/">Virginia Commonwealth University</a>
                 </div>
-                <div class="col-lg-5 col-md-12 text-center text-lg-left">
+                <div class="col-md-6 col-sm-12 text-center text-lg-left">
                     <div class="portrait-container">
                         <img src="img/thang.png" alt="Thang Dinh" class="img-fluid rounded">
                     </div>
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-7 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <h4>Education</h4>
                     <div class="education">
                         <div class="degree">
@@ -284,7 +360,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <h4>Contact</h4>
                     <p>
                         ERB 2321, College of Engineering,<br>
@@ -295,7 +371,7 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-12">
+                <div class="col-md-6 col-sm-12">
                     <h4>Research Interests:</h4>
                     <ul>
                         <li>Graph Machine Learning</li>
@@ -306,12 +382,23 @@
                         </li>
                     </ul>
                 </div>
+                <div class="col-md-6 col-sm-12">
+                    <h4>Teaching</h4>
+                        <ul>
+                            <li>CMSC 410/591: Introduction to Quantum Computing </li>
+                            <li>CMSC 691: Graph Neural Networks and Applications</li>
+                            <li>CMSC 691: Advanced Social Network Analysis &amp; Security</li>
+                            <li>CMSC 491: Introduction to Blockchain and Applications</li>
+                            <li>CMSC 501: Advanced Algorithms</li>
+                            <li>CMSC 401: Algorithm Analysis with Adv. Data Structure</li>
+                        </ul>
+                </div>
             </div>
             My <a href="http://en.wikipedia.org/wiki/Erd%C5%91s_number">Erdos number</a> is <span class="abv">3</span> via the following path: Paul Erdos – Ronald Graham – Panos Pardalos.
         </section>
 
         
-        <section id="member" class="mt-5 bg-dark py-5">
+        <section id="member" class="mt-5 bg-dark">
             <h2>Lab Members</h2>
             <div class="row mt-4">
                 <div class="col-md-6 col-sm-12">
@@ -330,7 +417,7 @@
             </div>
         </section>
 
-        <section id="awards" class="mt-5 bg-light py-5">
+        <section id="awards" class="mt-5 bg-light">
             <h2>Awards and Honors</h2>
             <ul>
                 <li>Best Paper Award, ACM Mobicom 2019</li>
@@ -348,7 +435,7 @@
             </ul>
         </section>
         
-        <section id="publications" class="mt-5 bg-dark py-5">
+        <section id="publications" class="mt-5 bg-dark">
             <h2>Selected Publications</h2>
             <ol>
                 <li>
@@ -379,7 +466,7 @@
             </p>
         </section>
 
-        <section id="research" class="mt-5 bg-light py-5">
+        <section id="research" class="mt-5 bg-light">
             <h2>Research Projects</h2>
             <div class="row">
                 <div class="col-lg-6 col-md-12">
@@ -459,20 +546,10 @@
             </div>
         </section>
 
-        <section id="teaching" class="mt-5 bg-dark py-5">
-            <h2>Teaching</h2>
-            <ul>
-                <li>CMSC 410/591: Introduction to Quantum Computing </li>
-                <li>CMSC 691: Graph Neural Networks and Applications</li>
-                <li>CMSC 691: Advanced Social Network Analysis &amp; Security</li>
-                <li>CMSC 491: Introduction to Blockchain and Applications</li>
-                <li>CMSC 501: Advanced Algorithms</li>
-                <li>CMSC 401: Algorithm Analysis with Adv. Data Structure</li>
-            </ul>
-        </section>
+   
     </div>
 
-    <footer class="bg-light text-center py-3 mt-5">
+    <footer class="bg-light text-center py-2 mt-5">
         &copy; 2025 Thang N. Dinh. All rights reserved.
     </footer>
 
