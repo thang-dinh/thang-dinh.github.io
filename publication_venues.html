@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum & Machine Learning Venues — SecQ Lab @ VCU</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0e1a; --surface:#111827; --surface2:#1a2234; --border:#1e293b;
+  --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --accent2:#818cf8;
+  --green:#34d399; --yellow:#fbbf24; --red:#f87171; --orange:#fb923c; --pink:#f472b6;
+  --sidebar-w:320px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* === LAYOUT === */
+.page{display:flex;min-height:100vh;position:relative;z-index:1}
+
+/* Sidebar */
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:10}
+.sidebar-header{padding:1.2rem 1rem .8rem;border-bottom:1px solid var(--border)}
+.sidebar-header h2{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:var(--accent);margin-bottom:.2rem}
+.sidebar-header .dl-count{font-size:.72rem;color:var(--muted)}
+.sidebar-header .dl-count span{color:var(--green);font-weight:700}
+.sidebar-scroll{flex:1;overflow-y:auto;padding:.6rem .8rem 2rem;scroll-behavior:smooth}
+.sidebar-scroll::-webkit-scrollbar{width:4px}
+.sidebar-scroll::-webkit-scrollbar-track{background:transparent}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* Sidebar timeline items */
+.dl-item{position:relative;padding:.5rem .7rem;margin-bottom:.35rem;border-radius:6px;border:1px solid var(--border);background:var(--surface2);transition:all .15s;cursor:pointer;display:flex;flex-direction:column;gap:1px}
+.dl-item:hover{border-color:var(--accent);background:rgba(56,189,248,.06)}
+.dl-item.dl-passed{opacity:.3}
+.dl-item.dl-next{border-color:var(--green);background:rgba(52,211,153,.06);box-shadow:0 0 10px rgba(52,211,153,.08)}
+
+/* Paper submission = BIG & prominent */
+.dl-item.dl-type-paper{padding:1rem .9rem;margin-bottom:.6rem;border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(129,140,248,.05));border-radius:8px;gap:3px}
+.dl-item.dl-type-paper.dl-next{border-left:4px solid var(--green);background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(56,189,248,.07));box-shadow:0 0 14px rgba(52,211,153,.12)}
+.dl-item.dl-type-paper.dl-passed{border-left:4px solid transparent;background:var(--surface2)}
+.dl-item.dl-type-paper .dl-conf-name{font-size:.9rem;font-weight:700}
+.dl-item.dl-type-paper .dl-days{font-size:.82rem;font-weight:600}
+.dl-item.dl-type-paper .dl-date{color:var(--accent);font-size:.78rem;font-weight:500}
+.dl-item.dl-type-paper .dl-type-label{font-size:.62rem;padding:2px 7px}
+
+/* Abstract = medium */
+.dl-item.dl-type-abstract{border-left:3px solid var(--accent2);padding:.45rem .7rem}
+.dl-item.dl-type-abstract.dl-passed{border-left:3px solid transparent}
+
+/* Notification = compact */
+.dl-item.dl-type-notification{border-left:2px solid var(--orange);padding:.3rem .7rem;opacity:.7}
+.dl-item.dl-type-notification.dl-passed{border-left:2px solid transparent}
+.dl-item.dl-type-notification .dl-conf-name{font-size:.7rem;font-weight:500}
+
+/* Shared inner elements */
+.dl-row{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.dl-conf-name{font-size:.76rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl-type-label{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:1px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.dl-type-label.lbl-paper{background:rgba(56,189,248,.18);color:var(--accent)}
+.dl-type-label.lbl-abstract{background:rgba(129,140,248,.15);color:var(--accent2)}
+.dl-type-label.lbl-notification{background:rgba(251,146,60,.15);color:var(--orange)}
+.dl-date-row{display:flex;justify-content:space-between;align-items:baseline}
+.dl-date{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted)}
+.dl-days{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted)}
+.dl-days.hot{color:var(--red);font-weight:600}
+.dl-days.warm{color:var(--yellow)}
+.dl-item.dl-passed .dl-date{text-decoration:line-through}
+
+/* Section dividers */
+.dl-section{font-size:.6rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;padding:.5rem 0 .25rem;margin-top:.2rem}
+
+/* Month dividers */
+.dl-month{display:flex;align-items:center;gap:.5rem;padding:.45rem 0 .2rem;margin-top:.3rem}
+.dl-month-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.dl-month-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(56,189,248,.3),transparent)}
+
+/* Main */
+.main{flex:1;min-width:0;padding:0 2rem 3rem}
+.main header{padding:2rem 0 1.5rem;border-bottom:1px solid var(--border)}
+.main header .top-bar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem}
+h1{font-family:'DM Serif Display',serif;font-size:2.2rem;font-weight:400;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:var(--muted);font-size:.9rem}
+.subtitle a{color:var(--accent);text-decoration:none}
+#liveClock{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--muted);margin-top:.3rem}
+#liveClock span{color:var(--accent)}
+
+/* Tabs */
+.tabs{display:flex;gap:.25rem;margin:1.5rem 0 1.2rem;overflow-x:auto}
+.tab{padding:.55rem 1.1rem;border-radius:8px 8px 0 0;cursor:pointer;font-size:.82rem;font-weight:600;border:1px solid var(--border);border-bottom:none;background:var(--surface);color:var(--muted);transition:all .2s;white-space:nowrap;user-select:none}
+.tab:hover{color:var(--text);background:var(--surface2)}
+.tab.active{background:var(--surface2);color:var(--accent);border-color:var(--accent)}
+.section{display:none;animation:fadeIn .3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:.3rem .75rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.75rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+.search-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.45rem .8rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.8rem;width:220px;outline:none;transition:border-color .2s}
+.search-box:focus{border-color:var(--accent)}
+.search-box::placeholder{color:var(--muted)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.5rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;text-align:center}
+.stat-card .num{font-family:'DM Serif Display',serif;font-size:1.8rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+
+/* Tables */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);background:var(--surface);margin-bottom:1.5rem}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+thead th{background:var(--surface2);padding:.65rem .8rem;text-align:left;font-weight:600;color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;white-space:nowrap;cursor:pointer;user-select:none;padding-right:1.3rem;position:relative}
+thead th:hover{color:var(--accent)}
+.sort-arrow{position:absolute;right:.25rem;top:50%;transform:translateY(-50%);font-size:.55rem;opacity:.3}
+thead th.sort-asc .sort-arrow{opacity:1;color:var(--accent)}
+thead th.sort-desc .sort-arrow{opacity:1;color:var(--accent)}
+tbody tr{border-bottom:1px solid rgba(30,41,59,.5);transition:background .15s}
+tbody tr:hover{background:rgba(56,189,248,.04)}
+td{padding:.55rem .8rem;vertical-align:top}
+.conf-name{font-weight:700;color:var(--text);font-size:.84rem}
+.conf-full{color:var(--muted);font-size:.72rem;display:block;margin-top:1px}
+.cat-row td{background:rgba(56,189,248,.06);font-weight:700;font-size:.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;padding:.45rem .8rem;border-top:2px solid rgba(56,189,248,.15)}
+
+/* Badges */
+.badge{display:inline-block;padding:.12rem .5rem;border-radius:12px;font-size:.67rem;font-weight:600;white-space:nowrap}
+.badge-upcoming{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.badge-soon{background:rgba(251,191,36,.15);color:var(--yellow);border:1px solid rgba(251,191,36,.3)}
+.badge-imminent{background:rgba(248,113,113,.18);color:var(--red);border:1px solid rgba(248,113,113,.35);animation:pulse 2s infinite}
+.badge-tbd{background:rgba(129,140,248,.12);color:var(--accent2);border:1px solid rgba(129,140,248,.3)}
+.badge-passed{background:rgba(148,163,184,.1);color:var(--muted);border:1px solid rgba(148,163,184,.2)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.countdown{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:2px}
+.countdown.hot{color:var(--red);font-weight:600}
+.countdown.warm{color:var(--yellow)}
+.core{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:.76rem}
+.core-astar{color:var(--green)}.core-a{color:var(--accent)}.core-b{color:var(--yellow)}.core-other{color:var(--muted)}
+.q1{color:var(--green);font-weight:600}.q2{color:var(--accent);font-weight:600}.q3{color:var(--yellow);font-weight:600}
+.if-val{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:.8rem}
+tr.row-open{background:rgba(52,211,153,.03)}
+tr.row-imminent{background:rgba(248,113,113,.05)}
+tr.row-first-open{box-shadow:inset 3px 0 0 var(--green)}
+
+/* Topic tags */
+.topic-tag{display:inline-block;padding:1px 5px;border-radius:8px;font-size:.6rem;font-weight:600;margin-right:2px;margin-top:2px;letter-spacing:.02em}
+.tag-quantum{background:rgba(56,189,248,.12);color:var(--accent)}
+.tag-optimization{background:rgba(251,191,36,.12);color:var(--yellow)}
+.tag-ml{background:rgba(244,114,182,.12);color:var(--pink)}
+.tag-theory{background:rgba(129,140,248,.12);color:var(--accent2)}
+.tag-security{background:rgba(248,113,113,.12);color:var(--red)}
+.tag-infoth{background:rgba(52,211,153,.12);color:var(--green)}
+.tag-data{background:rgba(251,146,60,.12);color:var(--orange)}
+.tag-blockchain{background:rgba(168,85,247,.15);color:#a855f7}
+
+footer{padding:1.5rem 0;border-top:1px solid var(--border);margin-top:2rem;text-align:center;color:var(--muted);font-size:.72rem}
+
+/* Mobile */
+@media(max-width:900px){
+  .page{flex-direction:column}
+  .sidebar{width:100%;min-width:unset;height:auto;max-height:220px;position:relative;border-right:none;border-bottom:1px solid var(--border)}
+  .sidebar-scroll{flex-direction:row;display:flex;overflow-x:auto;overflow-y:hidden;gap:.5rem;padding:.6rem .8rem}
+  .dl-item{min-width:200px;flex-shrink:0;margin-bottom:0}
+  .main{padding:0 1rem 2rem}
+  h1{font-size:1.5rem}
+  :root{--sidebar-w:100%}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- LEFT SIDEBAR: Deadline Timeline -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h2>⏰ Upcoming</h2>
+    <div class="dl-count"><span id="dlOpenCount"></span> open submissions</div>
+  </div>
+  <div class="sidebar-scroll" id="sidebarScroll"></div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+<header>
+  <div class="top-bar">
+    <div>
+      <h1>Quantum & Machine Learning Venues</h1>
+      <p class="subtitle">Conferences & Journals — <a href="https://thang-dinh.github.io/">SecQ Lab</a> (PI: Thang N. Dinh), CS Dept, VCU</p>
+    </div>
+    <div style="text-align:right">
+      <input type="text" class="search-box" id="globalSearch" placeholder="Search…" oninput="filterAll()">
+      <div id="liveClock"></div>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('conferences',this)">📅 Conferences</div>
+  <div class="tab" onclick="showTab('journals',this)">📚 Journals</div>
+</div>
+
+<!-- CONFERENCES -->
+<div id="conferences" class="section active">
+  <div class="stats" id="confStats"></div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterConf('all',this)">All</button>
+    <button class="filter-btn" onclick="filterConf('upcoming',this)">Open / Upcoming</button>
+    <button class="filter-btn" onclick="filterConf('quantum',this)">Quantum</button>
+    <button class="filter-btn" onclick="filterConf('theory',this)">Theory</button>
+    <button class="filter-btn" onclick="filterConf('ml',this)">ML / AI</button>
+    <button class="filter-btn" onclick="filterConf('opt',this)">Optimization</button>
+    <button class="filter-btn" onclick="filterConf('infoth',this)">Info Theory</button>
+    <button class="filter-btn" onclick="filterConf('data',this)">Data / Web</button>
+    <button class="filter-btn" onclick="filterConf('sec',this)">Security</button>
+    <button class="filter-btn" onclick="filterConf('blockchain',this)">Blockchain</button>
+  </div>
+  <div class="table-wrap"><table id="confTable"><thead><tr>
+    <th data-sort="name" onclick="sortConf(this,'name')">Conference <span class="sort-arrow">▼</span></th>
+    <th data-sort="deadline" onclick="sortConf(this,'deadline')">Nearest Deadline <span class="sort-arrow">▼</span></th>
+    <th>Other Deadlines</th>
+    <th data-sort="status" onclick="sortConf(this,'status')">Status <span class="sort-arrow">▼</span></th>
+    <th data-sort="dates" onclick="sortConf(this,'dates')">Conf Dates <span class="sort-arrow">▼</span></th>
+    <th data-sort="location" onclick="sortConf(this,'location')">Location <span class="sort-arrow">▼</span></th>
+    <th data-sort="core" onclick="sortConf(this,'core')">CORE <span class="sort-arrow">▼</span></th>
+    <th data-sort="cat" onclick="sortConf(this,'cat')">Topic <span class="sort-arrow">▼</span></th>
+  </tr></thead><tbody id="confBody"></tbody></table></div>
+</div>
+
+<!-- JOURNALS -->
+<div id="journals" class="section">
+  <div class="stats" id="journalStats"></div>
+  <div class="table-wrap"><table id="journalTable"><thead><tr>
+    <th data-sort="name" onclick="sortJrnl(this,'name')">Journal <span class="sort-arrow">▼</span></th>
+    <th data-sort="pub" onclick="sortJrnl(this,'pub')">Publisher <span class="sort-arrow">▼</span></th>
+    <th data-sort="if" onclick="sortJrnl(this,'if')">IF (2024) <span class="sort-arrow">▼</span></th>
+    <th data-sort="q" onclick="sortJrnl(this,'q')">Quartile <span class="sort-arrow">▼</span></th>
+    <th data-sort="h" onclick="sortJrnl(this,'h')">H-Index <span class="sort-arrow">▼</span></th>
+    <th>OA</th>
+    <th>Scope</th>
+  </tr></thead><tbody id="journalBody"></tbody></table></div>
+</div>
+
+
+<footer>
+  Quantum & Machine Learning Research Venues — SecQ Lab (PI: Thang N. Dinh), Dept. of Computer Science, Virginia Commonwealth University<br>
+  Deadline statuses computed live from your system clock. Always verify at official conference websites.
+</footer>
+</div><!-- /main -->
+</div><!-- /page -->
+
+<script src="data.js"></script>
+<script>
+function topicTags(ts){return ts.map(t=>`<span class="topic-tag tag-${t}">${TOPIC_LABELS[t]||t}</span>`).join('');}
+
+// ===================== DATE ENGINE =====================
+const NOW=new Date();
+const TODAY=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
+function parseD(s){return s?new Date(s+'T23:59:00'):null}
+function daysUntil(s){const d=parseD(s);return d?Math.ceil((d-TODAY)/864e5):null}
+function fmtCD(days){
+  if(days===null)return{text:'TBD',cls:''};
+  if(days<0)return{text:`${Math.abs(days)}d ago`,cls:''};
+  if(days===0)return{text:'🔥 TODAY!',cls:'hot'};
+  if(days===1)return{text:'🔥 TOMORROW!',cls:'hot'};
+  if(days<=7)return{text:`⚡ ${days}d left`,cls:'hot'};
+  if(days<=21)return{text:`${days}d left`,cls:'warm'};
+  return{text:`${days}d left`,cls:''};
+}
+function confStatus(dls){
+  let best=Infinity,hasTbd=false,hasOpen=false;
+  for(const d of dls){const dy=daysUntil(d.date);if(dy===null){hasTbd=true;continue;}if(dy>=0){hasOpen=true;if(dy<best)best=dy;}}
+  if(hasOpen&&best<=7)return{label:`${best}d LEFT`,cls:'badge-imminent',sort:best,row:'row-imminent'};
+  if(hasOpen&&best<=21)return{label:`${best}d left`,cls:'badge-soon',sort:best,row:'row-open'};
+  if(hasOpen)return{label:'UPCOMING',cls:'badge-upcoming',sort:best,row:'row-open'};
+  if(hasTbd)return{label:'TBD',cls:'badge-tbd',sort:9000,row:''};
+  return{label:'PASSED',cls:'badge-passed',sort:99999,row:''};
+}
+function nearestOpen(dls){let b=null;for(const d of dls){const dy=daysUntil(d.date);if(dy!==null&&dy>=0&&(!b||dy<daysUntil(b.date)))b=d;}return b;}
+
+// ===================== SIDEBAR DEADLINES =====================
+function renderSidebar(){
+  const el=document.getElementById('sidebarScroll');
+  // Build flat list of ALL events: submissions + notifications
+  let events=[];
+  for(const c of CONFERENCES){
+    for(const d of c.deadlines){
+      // Submission event
+      const typeLabel = d.type==='paper' ? 'Paper Submission' : d.type==='abstract' ? 'Abstract Submission' : d.label;
+      events.push({date:d.date, kind:d.type||'other', label:typeLabel, confId:c.id, confName:c.name, core:c.core, coreClass:c.coreClass});
+      // Notification event (only if date is a parseable YYYY-MM-DD)
+      if(d.notification && /^\d{4}-\d{2}-\d{2}$/.test(d.notification)){
+        events.push({date:d.notification, kind:'notification', label:'Notification ('+d.label+')', confId:c.id, confName:c.name, core:c.core, coreClass:c.coreClass});
+      }
+    }
+  }
+  const dated=events.filter(e=>e.date).sort((a,b)=>a.date.localeCompare(b.date));
+  const tbd=events.filter(e=>!e.date);
+
+  const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function monthKey(dateStr){ const d=new Date(dateStr); return d.getFullYear()+'-'+(d.getMonth()+1); }
+  function monthLabel(dateStr){ const d=new Date(dateStr); return MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+
+  let upH='',passH='',tbdH='',foundNext=false,nextElId=null,openCount=0;
+  let lastUpMonth='',lastPassMonth='';
+
+  for(const ev of dated){
+    const dy=daysUntil(ev.date), passed=dy!==null&&dy<0;
+    const isOpen=dy!==null&&dy>=0;
+    const isNext=isOpen&&!foundNext;
+    if(isNext) foundNext=true;
+    if(isOpen && ev.kind!=='notification') openCount++;
+    const cd=fmtCD(dy);
+    const eid=`sb-${ev.confId}-${ev.kind}-${ev.date}`;
+    if(isNext) nextElId=eid;
+
+    const mk=monthKey(ev.date);
+    const monthDiv=`<div class="dl-month"><span class="dl-month-label">${monthLabel(ev.date)}</span><span class="dl-month-line"></span></div>`;
+
+    let cls=`dl-item dl-type-${ev.kind}`;
+    if(passed) cls+=' dl-passed';
+    else if(isNext) cls+=' dl-next';
+
+    const lblCls = ev.kind==='paper'?'lbl-paper':ev.kind==='abstract'?'lbl-abstract':'lbl-notification';
+
+    const item=`<div class="${cls}" id="${eid}" onclick="scrollToConf('${ev.confId}')">
+      <div class="dl-row">
+        <span class="dl-conf-name">${ev.confName}</span>
+        <span class="dl-type-label ${lblCls}">${ev.kind==='paper'?'Paper':ev.kind==='abstract'?'Abstract':'Notify'}</span>
+      </div>
+      <div class="dl-date-row">
+        <span class="dl-date">${ev.date}</span>
+        <span class="dl-days ${cd.cls}">${cd.text}</span>
+      </div>
+    </div>`;
+
+    if(passed){
+      if(mk!==lastPassMonth){ passH+=monthDiv; lastPassMonth=mk; }
+      passH+=item;
+    } else {
+      if(mk!==lastUpMonth){ upH+=monthDiv; lastUpMonth=mk; }
+      upH+=item;
+    }
+  }
+  for(const ev of tbd){
+    tbdH+=`<div class="dl-item dl-type-${ev.kind}" onclick="scrollToConf('${ev.confId}')">
+      <div class="dl-row">
+        <span class="dl-conf-name">${ev.confName}</span>
+        <span class="dl-type-label lbl-paper">${ev.kind==='paper'?'Paper':'Other'}</span>
+      </div>
+      <div class="dl-date-row">
+        <span class="dl-date" style="color:var(--accent2)">TBD</span>
+        <span class="dl-days">—</span>
+      </div>
+    </div>`;
+  }
+
+  let h='<div class="dl-section">▸ Open</div>'+upH;
+  if(tbdH) h+='<div class="dl-section">▸ Date TBD</div>'+tbdH;
+  h+='<div class="dl-section">▸ Passed</div>'+passH;
+  el.innerHTML=h;
+  document.getElementById('dlOpenCount').textContent=openCount;
+
+  if(nextElId){
+    setTimeout(()=>{
+      const t=document.getElementById(nextElId);
+      if(t) t.scrollIntoView({behavior:'smooth',block:'center'});
+    },500);
+  }
+}
+
+function scrollToConf(confId){
+  // Ensure conferences tab is active
+  const confSection=document.getElementById('conferences');
+  if(!confSection.classList.contains('active')){
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    confSection.classList.add('active');
+    document.querySelectorAll('.tab')[0].classList.add('active');
+  }
+  setTimeout(()=>{
+    const row=document.getElementById('conf-'+confId);
+    if(row){
+      row.scrollIntoView({behavior:'smooth',block:'center'});
+      row.style.transition='background .3s';
+      row.style.background='rgba(56,189,248,.12)';
+      setTimeout(()=>{row.style.background='';},1500);
+    }
+  },100);
+}
+
+// ===================== CONFERENCE TABLE =====================
+let _firstOpenId=null,_confSortKey=null,_confSortDir=1;
+
+function confSortVal(c,key){
+  const st=confStatus(c.deadlines);
+  const nr=nearestOpen(c.deadlines);
+  const nrDays=nr?daysUntil(nr.date):(c.deadlines.some(d=>!d.date)?9000:99999);
+  const coreRank={'A*':1,'A (de facto)':2,'A':3,'B':4}[c.core]||5;
+  switch(key){
+    case 'name':return c.name.toLowerCase();
+    case 'deadline':return nrDays;
+    case 'status':return st.sort;
+    case 'dates':return c.confDates;
+    case 'location':return c.location.toLowerCase();
+    case 'core':return coreRank;
+    case 'cat':return c.topics[0];
+    default:return '';
+  }
+}
+
+function renderConf(sorted){
+  const tb=document.getElementById('confBody');
+  _firstOpenId=null;
+  const flat=!!sorted;
+  let h='';
+
+  function dlExtra(dl){
+    let ex=[];
+    if(dl.rebuttal) ex.push(`<span style="font-size:.68rem;color:var(--accent2)">↩ Rebuttal: ${dl.rebuttal}</span>`);
+    if(dl.notification) ex.push(`<span style="font-size:.68rem;color:var(--orange)">📬 Notify: ${dl.notification}</span>`);
+    return ex.join('<br>');
+  }
+
+  function row(c){
+    const st=confStatus(c.deadlines),nr=nearestOpen(c.deadlines);
+    const isOpen=!st.cls.includes('passed')&&!st.cls.includes('tbd');
+    let first=false;if(isOpen&&!_firstOpenId){_firstOpenId=c.id;first=true;}
+    let nrH='—';
+    if(nr){const dy=daysUntil(nr.date),cd=fmtCD(dy);
+      nrH=`<strong style="color:var(--green)">${nr.date}</strong><br><span style="font-size:.72rem;color:var(--muted)">${nr.label}</span><br><span class="countdown ${cd.cls}">${cd.text}</span>`;
+      const extra=dlExtra(nr); if(extra) nrH+='<br>'+extra;
+    }else if(c.deadlines.some(d=>!d.date)){nrH='<span style="color:var(--accent2)">TBD</span>';
+    }else{const l=c.deadlines[c.deadlines.length-1];nrH=`<span style="color:var(--muted);text-decoration:line-through">${l.date}</span><br><span style="font-size:.72rem;color:var(--muted)">${l.label}</span>`;}
+    const oth=c.deadlines.filter(d=>d!==nr).map(d=>{
+      const dy=daysUntil(d.date),p=dy!==null&&dy<0,ds=d.date||'TBD';
+      let s=`<span style="${p?'color:var(--muted);text-decoration:line-through;':''}font-size:.72rem">${d.label}: ${ds}</span>`;
+      const extra=dlExtra(d); if(extra&&!p) s+='<br>'+extra;
+      return s;
+    }).join('<br>')||'—';
+    return `<tr id="conf-${c.id}" data-cat="${c.cat}" data-status="${st.cls.replace('badge-','')}" class="${st.row} ${first?'row-first-open':''}">
+      <td><span class="conf-name">${c.name}</span><span class="conf-full">${c.full}</span></td>
+      <td>${nrH}</td><td>${oth}</td>
+      <td><span class="badge ${st.cls}">${st.label}</span></td>
+      <td>${c.confDates}</td><td>${c.location}</td>
+      <td><span class="core core-${c.coreClass}">${c.core}</span></td>
+      <td>${topicTags(c.topics)}</td></tr>`;
+  }
+  if(flat){for(const c of sorted)h+=row(c);}
+  else{for(const cat of CAT_ORDER){h+=`<tr class="cat-row" data-cat="${cat}"><td colspan="8">${CAT_NAMES[cat]}</td></tr>`;for(const c of CONFERENCES.filter(x=>x.cat===cat))h+=row(c);}}
+  tb.innerHTML=h;
+}
+
+function sortConf(th,key){
+  if(_confSortKey===key)_confSortDir*=-1;else{_confSortKey=key;_confSortDir=1;}
+  document.querySelectorAll('#confTable thead th').forEach(h=>{h.classList.remove('sort-asc','sort-desc');});
+  th.classList.add(_confSortDir===1?'sort-asc':'sort-desc');
+  const sorted=[...CONFERENCES].sort((a,b)=>{
+    const va=confSortVal(a,key),vb=confSortVal(b,key);
+    if(typeof va==='number'&&typeof vb==='number')return(va-vb)*_confSortDir;
+    return String(va).localeCompare(String(vb))*_confSortDir;
+  });
+  renderConf(sorted);
+}
+
+// ===================== JOURNAL TABLE =====================
+let _jrnlSortKey=null,_jrnlSortDir=1;
+function jrnlList(){return JOURNALS.filter(j=>!j.cat);}
+
+function renderJournals(sorted){
+  const tb=document.getElementById('journalBody');
+  const flat=!!sorted;let h='';
+  function jrow(j){
+    const qc=j.q==='Q1'?'q1':j.q==='Q2'?'q2':'q3';
+    return `<tr><td><span class="conf-name">${j.name}</span></td><td>${j.pub}</td>
+      <td><span class="if-val">${j.if_}</span></td><td><span class="${qc}">${j.q}</span></td>
+      <td>${j.h}</td><td>${j.oa}</td><td>${j.scope}</td></tr>`;
+  }
+  if(flat){for(const j of sorted)h+=jrow(j);}
+  else{h='<tr class="cat-row"><td colspan="7">Quantum Computing & Information — Core</td></tr>';
+    for(const j of JOURNALS){if(j.cat){h+=`<tr class="cat-row"><td colspan="7">${j.cat}</td></tr>`;continue;}h+=jrow(j);}}
+  tb.innerHTML=h;
+}
+
+function jrnlSortVal(j,key){
+  switch(key){case 'name':return j.name.toLowerCase();case 'pub':return j.pub.toLowerCase();
+    case 'if':return -j.if_;case 'q':return j.q;case 'h':return -j.h;default:return '';}
+}
+function sortJrnl(th,key){
+  if(_jrnlSortKey===key)_jrnlSortDir*=-1;else{_jrnlSortKey=key;_jrnlSortDir=1;}
+  document.querySelectorAll('#journalTable thead th').forEach(h=>{h.classList.remove('sort-asc','sort-desc');});
+  th.classList.add(_jrnlSortDir===1?'sort-asc':'sort-desc');
+  const sorted=[...jrnlList()].sort((a,b)=>{
+    const va=jrnlSortVal(a,key),vb=jrnlSortVal(b,key);
+    if(typeof va==='number'&&typeof vb==='number')return(va-vb)*_jrnlSortDir;
+    return String(va).localeCompare(String(vb))*_jrnlSortDir;
+  });
+  renderJournals(sorted);
+}
+
+// ===================== STATS =====================
+function renderStats(){
+  let total=CONFERENCES.length,open=0,astar=0;
+  for(const c of CONFERENCES){if(!confStatus(c.deadlines).cls.match(/passed|tbd/))open++;if(c.core.includes('A*')||c.core.includes('de facto'))astar++;}
+  document.getElementById('confStats').innerHTML=`
+    <div class="stat-card"><div class="num">${total}</div><div class="label">Conferences</div></div>
+    <div class="stat-card"><div class="num">${open}</div><div class="label">Open Deadlines</div></div>
+    <div class="stat-card"><div class="num">${astar}</div><div class="label">A* / A Venues</div></div>
+    <div class="stat-card"><div class="num">${new Set(CONFERENCES.map(c=>c.cat)).size}</div><div class="label">Categories</div></div>`;
+  const jc=jrnlList().length,q1=JOURNALS.filter(j=>j.q==='Q1').length,
+    oa=JOURNALS.filter(j=>j.oa&&j.oa.includes('OA')).length,mx=Math.max(...jrnlList().map(j=>j.if_));
+  document.getElementById('journalStats').innerHTML=`
+    <div class="stat-card"><div class="num">${jc}</div><div class="label">Journals</div></div>
+    <div class="stat-card"><div class="num">${mx}</div><div class="label">Highest IF</div></div>
+    <div class="stat-card"><div class="num">${q1}</div><div class="label">Q1 Journals</div></div>
+    <div class="stat-card"><div class="num">${oa}</div><div class="label">Open Access</div></div>`;
+}
+
+// ===================== NAV =====================
+function showTab(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');el.classList.add('active');
+}
+function filterConf(cat,el){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');
+  if(cat==='all'&&_confSortKey){_confSortKey=null;_confSortDir=1;document.querySelectorAll('#confTable thead th').forEach(h=>{h.classList.remove('sort-asc','sort-desc');});renderConf(null);return;}
+  if(cat==='all'){document.querySelectorAll('#confTable tbody tr').forEach(r=>{r.style.display='';});return;}
+  document.querySelectorAll('#confTable tbody tr').forEach(row=>{
+    if(cat==='upcoming'){
+      if(row.classList.contains('cat-row')){let nx=row.nextElementSibling,v=false;while(nx&&!nx.classList.contains('cat-row')){if(nx.dataset.status&&nx.dataset.status!=='passed')v=true;nx=nx.nextElementSibling;}row.style.display=v?'':'none';}
+      else{row.style.display=row.dataset.status&&row.dataset.status!=='passed'?'':'none';}
+    }else{row.style.display=row.dataset.cat===cat?'':'none';}
+  });
+}
+function filterAll(){
+  const q=document.getElementById('globalSearch').value.toLowerCase();
+  document.querySelector('.section.active')?.querySelectorAll('tbody tr').forEach(row=>{
+    if(row.classList.contains('cat-row')){row.style.display=q===''?'':'none';return;}
+    row.style.display=row.textContent.toLowerCase().includes(q)?'':'none';
+  });
+}
+
+// ===================== CLOCK =====================
+function clock(){
+  const n=new Date(),d=n.toLocaleDateString('en-US',{weekday:'short',year:'numeric',month:'short',day:'numeric'}),
+    t=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('liveClock').innerHTML=`${d} · <span>${t}</span>`;
+}
+
+// ===================== INIT =====================
+document.addEventListener('DOMContentLoaded',()=>{
+  renderSidebar();renderConf(null);renderJournals(null);renderStats();
+  clock();setInterval(clock,1000);
+});
+</script>
+</body>
+</html>
