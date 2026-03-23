@@ -224,6 +224,30 @@ const CONFERENCES = [
    confDates:'Jun 2026', location:'TBD', core:'—', coreClass:'other',
    url:'https://icbc2026.ieee-icbc.org/'},
 
+  // ===================== HPC =====================
+  {id:'sc26', name:'SC26', full:'Intl Conf for High Performance Computing, Networking, Storage & Analysis', cat:'hpc',
+   deadlines:[
+     {date:'2026-04-01', type:'abstract', label:'Abstract'},
+     {date:'2026-04-08', type:'paper', label:'Full paper', rebuttal:'2026-06-08 – 2026-06-11', notification:'2026-07-01'},
+   ],
+   confDates:'Nov 15–20, 2026', location:'Chicago, IL', core:'A*', coreClass:'astar',
+   url:'https://sc26.supercomputing.org/'},
+
+  {id:'hpdc', name:'HPDC 2026', full:'ACM Intl Symp. on High-Performance Parallel & Distributed Computing', cat:'hpc',
+   deadlines:[
+     {date:'2026-02-05', type:'paper', label:'Full paper', notification:'2026-03-31'},
+   ],
+   confDates:'Jul 13–16, 2026', location:'Cleveland, OH', core:'A', coreClass:'a',
+   url:'https://hpdc.sci.utah.edu/2026/'},
+
+  {id:'ics26', name:'ICS 2026', full:'ACM Intl Conf on Supercomputing', cat:'hpc',
+   deadlines:[
+     {date:'2025-12-16', type:'paper', label:'Cycle 1', rebuttal:'2026-02-10 – 2026-02-12', notification:'2026-02-24'},
+     {date:'2026-02-09', type:'paper', label:'Cycle 2', rebuttal:'2026-03-24 – 2026-03-26', notification:'2026-04-06'},
+   ],
+   confDates:'Jul 6–9, 2026', location:'Belfast, N. Ireland', core:'A', coreClass:'a',
+   url:'https://dipsa-qub.github.io/ICS2026-webpage/'},
+
   // ===================== DATA / WEB / IR =====================
   {id:'www27', name:'WWW 2027', full:'The Web Conference', cat:'data',
    deadlines:[
@@ -279,13 +303,14 @@ const TOPIC_MAP = {
   isit:['infoth','theory'],
   ccs:['security'], sp27:['security'], usenix26:['security'], usenix27:['security'],
   icbc:['blockchain','security'],
+  sc26:['hpc','quantum'], hpdc:['hpc'], ics26:['hpc'],
   www27:['data','ml'], sigir:['data','ml'], sigmod27:['data'], vldb27:['data'],
   sigmetrics:['data','theory'],
 };
 
 const TOPIC_LABELS = {
   quantum:'Quantum', ml:'ML/AI', theory:'Theory', optimization:'Optimization',
-  security:'Security', infoth:'Info Theory', data:'Data/Web', blockchain:'Blockchain',
+  security:'Security', infoth:'Info Theory', data:'Data/Web', blockchain:'Blockchain', hpc:'HPC',
 };
 
 // Attach topics to each conference
@@ -303,8 +328,9 @@ const CAT_NAMES = {
   infoth:'Information Theory',
   sec:'Security & Privacy',
   blockchain:'Blockchain & Cryptocurrency',
+  hpc:'High-Performance Computing',
 };
-const CAT_ORDER = ['quantum','theory','ml','opt','data','infoth','sec','blockchain'];
+const CAT_ORDER = ['quantum','theory','ml','opt','data','infoth','sec','blockchain','hpc'];
 
 // ============================================================
 // JOURNALS
